@@ -24,8 +24,6 @@
 
 `babel` - js 编译器
 
-####
-
 `prettier` - 代码格式化
 
 `reset.scss` - 重置样式
@@ -39,5 +37,6 @@
 `redux 集成`
 ``
 
-其他：
+#### 其他
+
 使用 `code spliting` 进行代码拆分，实现 `路由懒加载`
