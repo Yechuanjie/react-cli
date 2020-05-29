@@ -7,23 +7,34 @@
 项目技术栈: react + typescript + router + redux + scss。
 
 #### 包管理器
+
 `yarn`
 
 #### 基础架构
-`typescript` - 开发语言
-`react-router-dom` - 路由
-`redux` - 状态管理工具
-`scss` - css 预处理器
-`esint`
-`babel` - js编译器
 
-#### 
+`typescript` - 开发语言
+
+`react-router-dom` - 路由
+
+`redux` - 状态管理工具
+
+`scss` - css 预处理器
+
+`esint`
+
+`babel` - js 编译器
+
+####
+
 `prettier` - 代码格式化
+
 `reset.scss` - 重置样式
 
 todo:
 `api 接口封装`
+
 `px2rem 移动端`
+
 `redux 集成`
 ``
 
