@@ -4,13 +4,13 @@
 
 该脚手架基于 Create React App 创建，方便快速搭建规范的、可直接进入业务开发的 react 项目。
 
-项目技术栈: react + typescript + router + redux + scss。
+项目技术栈: react + antd-moblie + typescript + router + redux + scss。
 
 #### 包管理器
 
 `yarn`
 
-#### 基础架构
+#### 该结构包含以下模块
 
 `typescript` - 开发语言
 
@@ -20,7 +20,7 @@
 
 `scss` - css 预处理器
 
-`esint`
+`esint` - 代码检测工具
 
 `babel` - js 编译器
 
@@ -28,15 +28,19 @@
 
 `reset.scss` - 重置样式
 
+`postcss-px2rem` - 移动端适配
+
+`antd-moblie` - UI 框架
+
+`customize-cra` - 自定义 webpack 配置
+
+`loadable-components` - 实现路由懒加载
+
+`api` - 封装 api 请求
+
 #### todo
 
 `api 接口封装`
 
-`px2rem 移动端`
-
 `redux 集成`
 ``
-
-#### 其他
-
-使用 `code spliting` 进行代码拆分，实现 `路由懒加载`
