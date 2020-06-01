@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import './index.scss'
-import Loading from '../../components/loading'
 
 const PreLoad = () => {
   const history = useHistory()
   const toIndx = () => {
     history.push('/index')
   }
-  
+
   return (
     <div className="page">
       <div>preload page...</div>

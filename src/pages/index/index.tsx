@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './index.scss'
 import Loading from '../../components/loading'
 
 function Index() {
   const [showLoading, setshowLoading] = useState(true)
 
-  setTimeout(() => {
-    setshowLoading(false)
-  }, 2000)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setshowLoading(false)
+    }, 2000)
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [])
 
   return (
     <div className="page">
