@@ -10,8 +10,8 @@ const PreLoad = () => {
 
   return (
     <div className="page">
-      <div>preload page...</div>
-      <div onClick={toIndx}>点击跳转到首页</div>
+      <div className="title">preload page...</div>
+      <div className="in" onClick={toIndx}>点击跳转到首页</div>
     </div>
   )
 }

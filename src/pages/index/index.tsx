@@ -16,7 +16,7 @@ function Index() {
 
   return (
     <div className="page">
-      <Loading show={showLoading}></Loading>
+      <Loading show={showLoading} txt='加载中...'></Loading>
       <div>首页...</div>
     </div>
   )
