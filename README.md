@@ -38,6 +38,16 @@
 
 `api` - 封装 api 请求
 
+`alias` - 别名设置
+
+> vscode 安装 path-intellisense 插件, 并在 setting.json 中设置别名映射，就能在别名里提示文件路径
+
+```JSON
+"path-intellisense.mappings": {
+  "@": "\${workspaceRoot}/src"
+}
+```
+
 #### todo
 
 `api 接口封装`
