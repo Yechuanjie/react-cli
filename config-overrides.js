@@ -17,7 +17,16 @@ module.exports = override(
   addPostcssPlugins([require('postcss-px2rem')({ remUnit: 75 })]),
   /* 别名设置 */
   addWebpackAlias({
-    '@': path.resolve(__dirname, 'src')
+    '@/': path.resolve(__dirname, 'src'),
+    '@/components': path.resolve(__dirname, './src/components'),
+    '@/utils': path.resolve(__dirname, './src/utils'),
+    '@/pages': path.resolve(__dirname, './src/pages'),
+    '@/store': path.resolve(__dirname, './src/store'),
+    '@/api': path.resolve(__dirname, './src/api'),
+    '@/router': path.resolve(__dirname, './src/router'),
+    '@/assets': path.resolve(__dirname, './src/assets'),
+    '@/reducer': path.resolve(__dirname, './src/reducer'),
+    '@/action': path.resolve(__dirname, './src/action')
   }),
   /* 按需引入antd-mobile */
   fixBabelImports('import', {

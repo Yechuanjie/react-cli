@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import './index.scss'
 
-const PreLoad = () => {
+const About = () => {
   const history = useHistory()
   const toIndx = () => {
     history.push('/index')
@@ -10,10 +10,12 @@ const PreLoad = () => {
 
   return (
     <div className="page">
-      <div className="title">preload page...</div>
-      <div className="in" onClick={toIndx}>点击跳转到首页</div>
+      <div className="title">About page...</div>
+      <div className="in" onClick={toIndx}>
+        点击跳转到首页
+      </div>
     </div>
   )
 }
 
-export default PreLoad
+export default About

@@ -1,22 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Loadable from 'loadable-components'
-
-/* Import the components by Loadable */
-const Preload = Loadable(() => import('../pages/preload'))
-const Index = Loadable(() => import('../pages/index'))
-
-const routes = [
-  {
-    path: '/',
-    component: Preload,
-    exact: true
-  },
-  {
-    path: '/index',
-    component: Index
-  }
-]
+import routes from './routes'
 
 /* Use components to define routes */
 const RouterView = () => (

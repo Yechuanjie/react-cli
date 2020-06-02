@@ -30,9 +30,9 @@
 
 `postcss-px2rem` - 移动端适配
 
-`antd-moblie` - UI 框架
+`antd-moblie` - UI 框架（按需加载）
 
-`customize-cra` - 自定义 webpack 配置
+`customize-cra` - 支持自定义 webpack 配置
 
 `loadable-components` - 实现路由懒加载
 
