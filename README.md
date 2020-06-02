@@ -2,45 +2,39 @@
 
 ## react-cli
 
-该脚手架基于 Create React App 创建，方便快速搭建规范的、可直接进入业务开发的 react 项目。
+该脚手架基于 Create React App 创建，方便快速搭建规范的、可直接进入业务开发的 react 移动端项目。
 
-项目技术栈: react + antd-moblie + typescript + router + redux + scss。
+项目技术栈: react + antd-moblie + typescript + react-router + redux + sass。
 
-#### 包管理器
+<span id="top" style="font-weight:bold;font-size:20px;">目录</span>
 
-`yarn`
+- [√ typescript 开发语言](#)
 
-#### 该结构包含以下模块
+- [√ redux 状态管理](#)
 
-`typescript` - 开发语言
+- [√ react-router 路由管理](#)
 
-`react-router-dom` - 路由
+- [√ 路由懒加载](#)
 
-`redux` - 状态管理工具
+- [√ sass 支持，全局样式](#)
 
-`scss` - css 预处理器
+- [√ esint + prettier 统一开发规范](#)
 
-`esint` - 代码检测工具
+- [√ rem 适配方案 ](#)
 
-`babel` - js 编译器
+- [√ antd-moblie 组件按需加载](#)
 
-`prettier` - 代码格式化
+- [√ 支持自定义 webpack 配置 ](#)
 
-`reset.scss` - 重置样式
+- [√ axios 封装及接口管理](#)
 
-`postcss-px2rem` - 移动端适配
+- [√ 配置多环境变量](#env)
 
-`antd-moblie` - UI 框架（按需加载）
-
-`customize-cra` - 支持自定义 webpack 配置
-
-`loadable-components` - 实现路由懒加载
-
-`api` - 封装 api 请求
+- [√ 配置 alias 别名](#)
 
 `alias` - 别名设置
 
-> vscode 安装 path-intellisense 插件, 并在 setting.json 中设置别名映射，就能在别名里提示文件路径
+###### vscode 安装 path-intellisense 插件, 并在 setting.json 中设置别名映射，就能在别名里提示文件路径
 
 ```JSON
 "path-intellisense.mappings": {
@@ -53,3 +47,23 @@
 `api 接口封装`
 
 `redux 集成`
+
+### <span id="env">✅ 配置多环境变量 </span>
+
+`package.json` 里的 `scripts` 配置 `build:dev` `build:sta` `build:pro`来执行不同环境
+
+- 通过 `yarn serve` 启动本地 , 执行 `development`
+- 通过 `yarn build:dev` 启动测试环境 , 执行 `development`
+- 通过 `yarn build:sta` 打包预发布环境 , 执行 `staging`
+- 通过 `yarn build:pro` 打包正式环境 , 执行 `production`
+
+```json
+"scripts": {
+  "start": "react-app-rewired start",
+  "build:dev": "dotenv -e .env.development react-app-rewired build",
+  "build:sta": "dotenv -e .env.staging react-app-rewired build",
+  "build:pro": "dotenv -e .env.production react-app-rewired build",
+  "test": "react-app-rewired test",
+  "eject": "react-scripts eject"
+},
+```

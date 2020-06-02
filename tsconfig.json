@@ -1,6 +1,7 @@
 {
+  "extends": "./paths.json",
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
@@ -21,7 +22,6 @@
     "noImplicitAny": false
   },
   "include": [
-    "src/**/*"
-  ],
-  "extends": "./paths.json"
+    "*"
+  ]
 }

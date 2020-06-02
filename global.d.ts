@@ -1,3 +1,10 @@
+
+/* 环境变量 */
+type EnvConfig = {
+  ENV_TYPE: string
+  API_DOMAIN: string
+}
+
 interface ListCodeDetail {
   pageNum: 75698133.94500294
   pageSize: -20044393.710236892

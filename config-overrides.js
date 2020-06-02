@@ -26,7 +26,9 @@ module.exports = override(
     '@/router': path.resolve(__dirname, './src/router'),
     '@/assets': path.resolve(__dirname, './src/assets'),
     '@/reducer': path.resolve(__dirname, './src/reducer'),
-    '@/action': path.resolve(__dirname, './src/action')
+    '@/action': path.resolve(__dirname, './src/action'),
+    '@/constant': path.resolve(__dirname, './src/constant'),
+    '@/config': path.resolve(__dirname, './src/config')
   }),
   /* 按需引入antd-mobile */
   fixBabelImports('import', {

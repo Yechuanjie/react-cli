@@ -12,8 +12,10 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
     "antd-mobile": "^2.3.3",
+    "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.0",
     "customize-cra": "^1.0.0",
+    "dotenv-cli": "^3.1.0",
     "loadable-components": "^2.2.3",
     "node-sass": "^4.14.1",
     "postcss-px2rem": "^0.3.0",
@@ -27,7 +29,9 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build:dev": "dotenv -e .env.development react-app-rewired build",
+    "build:sta": "dotenv -e .env.staging react-app-rewired build",
+    "build:pro": "dotenv -e .env.production react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },

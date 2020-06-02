@@ -8,7 +8,6 @@ import './index.scss'
 
 function Index() {
   const [showLoading, setshowLoading] = useState(true)
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setshowLoading(false)
