@@ -91,8 +91,6 @@ module.exports = override(
 - `yarn build:dev` 打包测试环境 , 执行 `development`
 - `yarn build:sta` 打包预发布环境 , 执行 `staging`
 - `yarn build:pro` 打包正式环境 , 执行 `production`
-  
-  
 
 ```json
 "scripts": {
@@ -105,15 +103,14 @@ module.exports = override(
 
 ##### 配置详情
 
-在 **根目录** 下创建不同的环境变量文件，就如你所看到的 `scripts` ，通过  `dotenv`  可以指定不同的环境变量文件。
+在 **根目录** 下创建不同的环境变量文件，如 `.env.development` ，`.env.staging`， `.env.production`，就如你所看到的 `scripts` ，通过  `dotenv`  可以指定不同的环境变量文件。
 
-在代码中可以通过  `process.env.REACT_APP_ENV` 访问所在的环境变量。除了 `REACT_APP_*` 变量之外，在你的应用代码中始终可用的还有两个特殊的变量`NODE_ENV` 和`BASE_URL`
+在代码中可以通过 `process.env.REACT_APP_ENV` 访问所在的环境变量。除了 `REACT_APP_*` 变量之外，在你的应用代码中始终可用的还有两个特殊的变量`NODE_ENV` 和`BASE_URL`
 
 - **.env.development** 
   
   ```javascript
   # 测试环境
-  NODE_ENV = 'development'
   # must start with REACT_APP_
   REACT_APP_ENV = 'development'
   ```
@@ -122,7 +119,6 @@ module.exports = override(
   
   ```javascript
   # 预发布环境
-  NODE_ENV = 'production'
   # must start with REACT_APP_
   REACT_APP_ENV = 'staging'
   ```
@@ -131,7 +127,48 @@ module.exports = override(
   
   ```javascript
   # 正式环境
-  NODE_ENV = 'production'
   # must start with REACT_APP_
   REACT_APP_ENV = 'production'
   ```
+
+这里我们并没有定义全部环境变量，只定义了基础的环境类型 REACT_APP_ENV `development`，`staging`， `production`  。变量我们统一在 `src/config/env.*.ts` 里进行管理
+
+`question:`   为什么要在 `config` 中新建三个文件，而不是直接写在环境变量文件里呢？
+
+- **修改变量方便，无需重新启动项目**
+
+- **引入方式更符合模块化标准**
+
+config/index.ts
+
+```javascript
+// 根据build命令指定的环境，引入不同配置
+const config = require('./env.' + process.env.REACT_APP_ENV)
+export default config.default
+```
+
+每种环境单独去配置公共变量，以测试环境配置为例 
+
+`config/.env.development.ts`  
+
+```javascript
+// 测试环境配置
+export default {
+  ENV_TYPE: '测试环境',
+  API_DOMAIN: '//test.xxx.com' // api请求地址
+  OTHER_GLOBAL_VAR: 'xxx' // 可添加自定义的公共变量
+}
+```
+
+根据环境变量不同，`config` 配置就会不同
+
+```javascript
+import config from '@/config'
+console.info(config)
+// config
+{
+  ENV_TYPE: '测试环境',
+  API_DOMAIN: '//xxx.xxx.com'
+  OTHER_GLOBAL_VAR: 'xxx'
+}
+```
