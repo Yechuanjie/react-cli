@@ -3,7 +3,12 @@ import Loadable from 'loadable-components'
 const About = Loadable(() => import('@/pages/about'))
 const Index = Loadable(() => import('@/pages/index'))
 
-const routes = [
+interface routerConfigModel {
+  path: string
+  component?: any
+  exact?: boolean
+}
+const routes: routerConfigModel[] = [
   {
     path: '/',
     component: Index,

@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - '10.15.3'
+before_script:
+  - yarn install
+script:
+  - yarn build:pro
+after_script:
+  - cd build
+  - git init
+  - git config user.name "yechuanjie"
+  - git config user.email "1102684711@qq.com"
+  - git add .
+  - git commit -m "Update"
+  - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
