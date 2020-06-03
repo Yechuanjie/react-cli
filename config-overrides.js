@@ -1,11 +1,11 @@
 /**
- * 非eject方式暴露所有配置
- * 使用react-app-rewired插件可以暴露出webpack配置
- * 结合customize-cra(自定义create-react-app)自定义webpack配置
+ * 非eject方式暴露webpack配置
+ * 使用customize-cra自定义webpack配置
  */
 
 const { override, addPostcssPlugins, addWebpackAlias, fixBabelImports } = require('customize-cra')
 const path = require('path')
+const resolve = dir => path.join(__dirname, dir)
 
 module.exports = override(
   /**
@@ -17,18 +17,18 @@ module.exports = override(
   addPostcssPlugins([require('postcss-px2rem')({ remUnit: 75 })]),
   /* 别名设置 */
   addWebpackAlias({
-    '@/': path.resolve(__dirname, 'src'),
-    '@/components': path.resolve(__dirname, './src/components'),
-    '@/utils': path.resolve(__dirname, './src/utils'),
-    '@/pages': path.resolve(__dirname, './src/pages'),
-    '@/store': path.resolve(__dirname, './src/store'),
-    '@/api': path.resolve(__dirname, './src/api'),
-    '@/router': path.resolve(__dirname, './src/router'),
-    '@/assets': path.resolve(__dirname, './src/assets'),
-    '@/reducer': path.resolve(__dirname, './src/reducer'),
-    '@/action': path.resolve(__dirname, './src/action'),
-    '@/constant': path.resolve(__dirname, './src/constant'),
-    '@/config': path.resolve(__dirname, './src/config')
+    '@/': resolve('src'),
+    '@/components': resolve('./src/components'),
+    '@/utils': resolve('./src/utils'),
+    '@/pages': resolve('./src/pages'),
+    '@/store': resolve('./src/store'),
+    '@/api': resolve('./src/api'),
+    '@/router': resolve('./src/router'),
+    '@/assets': resolve('./src/assets'),
+    '@/reducer': resolve('./src/reducer'),
+    '@/action': resolve('./src/action'),
+    '@/constant': resolve('./src/constant'),
+    '@/config': resolve('./src/config')
   }),
   /* 按需引入antd-mobile */
   fixBabelImports('import', {
