@@ -105,10 +105,33 @@ module.exports = override(
 
 ##### 配置详情
 
-在**根目录**下创建不同的环境变量文件，就如你所看到的`scripts`，通过 `dotenv` 可以指定不同的环境变量文件，
+在 **根目录** 下创建不同的环境变量文件，就如你所看到的 `scripts` ，通过  `dotenv`  可以指定不同的环境变量文件。
 
-- .env.development
+在代码中可以通过  `process.env.REACT_APP_ENV` 访问所在的环境变量。除了 `REACT_APP_*` 变量之外，在你的应用代码中始终可用的还有两个特殊的变量`NODE_ENV` 和`BASE_URL`
 
-- .env.staging
+- **.env.development** 
+  
+  ```javascript
+  # 测试环境
+  NODE_ENV = 'development'
+  # must start with REACT_APP_
+  REACT_APP_ENV = 'development'
+  ```
 
-- .env.production
+- **.env.staging**
+  
+  ```javascript
+  # 预发布环境
+  NODE_ENV = 'production'
+  # must start with REACT_APP_
+  REACT_APP_ENV = 'staging'
+  ```
+
+- **.env.production**
+  
+  ```javascript
+  # 正式环境
+  NODE_ENV = 'production'
+  # must start with REACT_APP_
+  REACT_APP_ENV = 'production'
+  ```
