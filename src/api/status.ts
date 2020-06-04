@@ -13,20 +13,20 @@ export const HTTP_STATUS = {
 }
 
 export const HTTP_TEXT = {
-  OK: '成功',
-  CREATED: '已创建',
-  ACCEPTED: '已接受',
-  CLIENT_ERROR: '错误请求',
-  AUTHENTICATE: '未授权',
-  FORBIDDEN: '没有访问权限',
-  NOT_FOUND: '请求资源未找到',
-  SERVER_ERROR: '服务器错误',
-  BAD_GATEWAY: '网关错误',
-  SERVICE_UNAVAILABLE: '服务不可用',
-  GATEWAY_TIMEOUT: '网关超时'
+  OK: '200 - 请求成功',
+  CREATED: '201 - 请求已创建',
+  ACCEPTED: '202 - 请求已接受',
+  CLIENT_ERROR: '400 - 错误请求! ',
+  AUTHENTICATE: '401 - 用户没有权限! ',
+  FORBIDDEN: '403 - 拒绝访问! ',
+  NOT_FOUND: '404 - 请求错误, 未找到该资源! ',
+  SERVER_ERROR: '500 - 服务器发生错误，请检查服务器! ',
+  BAD_GATEWAY: '502 - 网关错误! ',
+  SERVICE_UNAVAILABLE: '503 - 服务不可用，服务器暂时过载或维护! ',
+  GATEWAY_TIMEOUT: '504 - 连接超时!'
 }
 
-export const getHttpStatusText = function (code: number): string {
+export const getHttpStatusText = function (code: number | null, err?: any): string {
   for (const key in HTTP_STATUS) {
     if (HTTP_STATUS[key] === code) {
       const text = HTTP_TEXT[key]
@@ -35,5 +35,5 @@ export const getHttpStatusText = function (code: number): string {
       break
     }
   }
-  return '未知错误'
+  return `未知错误 ${err}`
 }

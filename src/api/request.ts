@@ -2,58 +2,56 @@ import axios, { AxiosRequestConfig, Method } from 'axios'
 import qs from 'qs'
 import envConfig from '@/config'
 import { Toast } from 'antd-mobile'
-import Loading from '@/components/loading'
-
+import { getHttpStatusText } from './status'
+/**
+ * 接口返回类型 (根据后端的统一格式)
+ * @interface ResponseType
+ */
 interface ResponseType {
   data: any
   msg: string
   code: number
 }
 
-// 创建一个axios实例
-const instance = axios.create({
+/* 请求公共参数配置 */
+const publicParams = {
+  env: envConfig.ENV_TYPE,
+  mockType: 1,
+  source: 'h5'
+}
+
+/* 创建一个axios实例 */
+const AxiosInstance = axios.create({
   baseURL: envConfig.BASE_URL,
   timeout: 5000,
   withCredentials: false
 })
 
 // request interceptor
-instance.interceptors.request.use(config => {
-  Toast.loading('Loading', undefined, undefined, true)
+AxiosInstance.interceptors.request.use(config => {
   // 自定义headers
   config.headers = {
     'Content-Type': 'application/json'
-    // 'xxx-token': 'user_token',
-    // 'Access-Control-Allow-Origin': window.location.origin,
-    // 'Access-Control-Allow-Credentials': 'true'
   }
   return config
 })
 
 // response interceptor
-instance.interceptors.response.use(
+AxiosInstance.interceptors.response.use(
   response => {
-    setTimeout(() => {
-      Toast.hide()
-    }, 2000);
-    const res = response.data
+    const res = response
     if (res.status && res.status !== 200) {
+      Toast.info(getHttpStatusText(res.status))
       return Promise.reject(res || 'error')
     } else {
       return Promise.resolve(res)
     }
   },
   error => {
-    Toast.hide()
+    Toast.info(getHttpStatusText(null, error))
     return Promise.reject(error)
   }
 )
-
-const publicParams = {
-  env: 'test',
-  mockType: 1,
-  source: 'h5'
-}
 
 /**
  * 封装request
@@ -63,11 +61,7 @@ const publicParams = {
  * @param {*} [data]
  * @returns {Promise<ResponseType>}
  */
-export default async function request(
-  url: string,
-  method: Method,
-  data?: {}
-): Promise<ResponseType> {
+export default function request(url: string, method: Method, data?: {}): Promise<ResponseType> {
   // 合并公共参数
   data = Object.assign({}, data, publicParams)
   const options: AxiosRequestConfig = {
@@ -78,9 +72,14 @@ export default async function request(
       method.toUpperCase() === 'POST' || method.toUpperCase() === 'PUT' ? qs.stringify(data) : null
   }
   return new Promise((resolve, reject) => {
-    instance(options)
+    AxiosInstance(options)
       .then(res => {
-        resolve(res.data)
+        const data = res.data as ResponseType
+        // 这里可以添加和后台的 status 约定
+        // if (data.code !== 200) {
+        //   Toast.info(data.msg)
+        // }
+        resolve(data)
       })
       .catch(err => {
         reject(err)
