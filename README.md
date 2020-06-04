@@ -1,8 +1,8 @@
-该脚手架使用 [Create React App](https://github.com/facebook/create-react-app) 创建。
-
 ## react-cli
 
-该脚手架基于 Create React App 创建，方便快速搭建规范的、可直接进入业务开发的 react 移动端项目
+[![Build Status](https://travis-ci.org/Yechuanjie/react-cli.svg?branch=master)](https://travis-ci.org/Yechuanjie/react-cli)
+
+该脚手架基于 [Create React App](https://github.com/facebook/create-react-app) 创建，方便快速搭建规范的、可直接进入业务开发的 react 移动端项目
 
 项目技术栈: react + antd-moblie + typescript + react-router + redux + sass
 
@@ -16,7 +16,7 @@
 
 - [✔ 路由懒加载](#)
 
-- [✖ axios 封装及接口管理](#)
+- [✔ axios 封装及接口管理](#)
 
 - [✔ sass 支持，全局样式](#)
 
@@ -37,7 +37,7 @@
 通过 `customize-cra` 暴露 webpack 配置的`config-overrides.js`文件中，使用`addWebpackAlias`设置
 
 ```javascript
-const { override, addWebpackAlias} = require('customize-cra')
+const { override, addWebpackAlias } = require('customize-cra')
 const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 module.exports = override(
@@ -60,22 +60,20 @@ module.exports = override(
 
 #### tsconfig.json
 
-根目录的 `tsconfig.json` 文件中也需要设置别名的支持，否则ts会提示无法识别别名
+根目录的 `tsconfig.json` 文件中也需要设置别名的支持，否则 ts 会提示无法识别别名
 
 ```json
 {
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "@/*": ["*"]
     }
   }
 }
 ```
 
-`Tips:` 推荐使用 `vscode ` 开发，安装 `path-intellisense `插件, 并在  `setting.json ` 中设置别名映射，就能在使用别名时提示文件路径
+`Tips:` 推荐使用 `vscode` 开发，安装 `path-intellisense`插件, 并在 `setting.json` 中设置别名映射，就能在使用别名时提示文件路径
 
 ```JSON
 "path-intellisense.mappings": {
@@ -103,12 +101,12 @@ module.exports = override(
 
 ##### 配置详情
 
-在 **根目录** 下创建不同的环境变量文件，如 `.env.development` ，`.env.staging`， `.env.production`，就如你所看到的 `scripts` ，通过  `dotenv`  可以指定不同的环境变量文件。
+在 **根目录** 下创建不同的环境变量文件，如 `.env.development` ，`.env.staging`， `.env.production`，就如你所看到的 `scripts` ，通过 `dotenv` 可以指定不同的环境变量文件。
 
 在代码中可以通过 `process.env.REACT_APP_ENV` 访问所在的环境变量。除了 `REACT_APP_*` 变量之外，在你的应用代码中始终可用的还有两个特殊的变量`NODE_ENV` 和`BASE_URL`
 
-- **.env.development** 
-  
+- **.env.development**
+
   ```javascript
   # 测试环境
   # must start with REACT_APP_
@@ -116,7 +114,7 @@ module.exports = override(
   ```
 
 - **.env.staging**
-  
+
   ```javascript
   # 预发布环境
   # must start with REACT_APP_
@@ -124,16 +122,16 @@ module.exports = override(
   ```
 
 - **.env.production**
-  
+
   ```javascript
   # 正式环境
   # must start with REACT_APP_
   REACT_APP_ENV = 'production'
   ```
 
-这里我们并没有定义全部环境变量，只定义了基础的环境类型 REACT_APP_ENV `development`，`staging`， `production`  。变量我们统一在 `src/config/env.*.ts` 里进行管理
+这里我们并没有定义全部环境变量，只定义了基础的环境类型 REACT_APP_ENV `development`，`staging`， `production` 。变量我们统一在 `src/config/env.*.ts` 里进行管理
 
-`question:`   为什么要在 `config` 中新建三个文件，而不是直接写在环境变量文件里呢？
+`question:` 为什么要在 `config` 中新建三个文件，而不是直接写在环境变量文件里呢？
 
 - **修改变量方便，无需重新启动项目**
 
@@ -147,9 +145,9 @@ const config = require('./env.' + process.env.REACT_APP_ENV)
 export default config.default
 ```
 
-每种环境单独去配置公共变量，以测试环境配置为例 
+每种环境单独去配置公共变量，以测试环境配置为例
 
-`config/.env.development.ts`  
+`config/.env.development.ts`
 
 ```javascript
 // 测试环境配置
