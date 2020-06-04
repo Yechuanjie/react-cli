@@ -35,5 +35,11 @@ export const getHttpStatusText = function (code: number | null, err?: any): stri
       break
     }
   }
-  return `未知错误 ${err}`
+  if (err && err.response && err.response.indexOf('timeout') > -1) {
+    return '请求超时，请稍后重试！'
+  }
+  if (err && err.response && err.response.indexOf('Network') > -1) {
+    return '请求失败, 请检查网络连接'
+  }
+  return `未知错误`
 }

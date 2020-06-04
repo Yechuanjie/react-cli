@@ -18,6 +18,8 @@
 
 - [✔ axios 封装及接口管理](#)
 
+- [✖ mock server](#)
+
 - [✔ sass 支持，全局样式](#)
 
 - [✔ esint + prettier 统一开发规范](#)
