@@ -7,7 +7,7 @@ import * as API from '@/api/index'
 import './index.scss'
 
 function Index() {
-  const [showLoading, setshowLoading] = useState(true)
+  const [showLoading] = useState(true)
 
   useEffect(() => {
     API.getMainPageInfo({
