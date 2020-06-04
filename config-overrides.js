@@ -14,7 +14,7 @@ module.exports = override(
    * 需要将remUnit的值设置为设计图宽度（这里为750px）75的一半，那么我们必须在写样式时，也将值改为设计图的一半，
    * 即可以1:1还原组件，否则会样式会有变化，例如按钮会变小。
    */
-  addPostcssPlugins([require('postcss-px2rem')({ remUnit: 75 })]),
+  addPostcssPlugins([require('postcss-px2rem')({ remUnit: 50 })]),
   /* 别名设置 */
   addWebpackAlias({
     '@/': resolve('src'),

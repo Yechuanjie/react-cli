@@ -1,7 +1,6 @@
-
 /* 环境变量 */
 type EnvConfig = {
-  ENV_TYPE: string
+  ENV_TYPE: 'test' | 'staging' | 'production'
   BASE_URL: string
 }
 

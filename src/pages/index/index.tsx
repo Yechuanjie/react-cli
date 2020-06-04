@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
-import Loading from '@/components/loading'
-import logo from '@/assets/logo192.png'
+import bg from '@/assets/preload-bg@2x.png'
+import inner from '@/assets/preload-inner@2x.png'
 import * as API from '@/api/index'
+// import md5 from 'js-md5'
 
 import './index.scss'
 
-function Index() {
-  const [showLoading] = useState(true)
+const getInfo = () => {
+  API.getSentence({
+    DateKey: '2020-06-04',
+    cid: 'ios',
+    model: 'ios13.2.3'
+  }).then(res => {
+    console.info('object', res)
+  })
+}
 
+function Index() {
   useEffect(() => {
-    API.getMainPageInfo({
-      mockType: 1,
-      source: 'web',
-      useType: 2
-    })
+    getInfo()
   }, [])
 
   return (
     <div className="page">
-      <Loading show={showLoading} txt="加载中..."></Loading>
-      <img src={logo} alt="" />
+      <div className="logo">
+        <img className="bg" src={bg} alt="" />
+        <img className="inner" src={inner} alt="" />
+      </div>
       <div>首页...</div>
     </div>
   )

@@ -4,7 +4,7 @@ import RouterView from './router'
 
 import config from '@/config'
 
-console.info(config.ENV_TYPE)
+console.info(config)
 
 function App() {
   return <RouterView></RouterView>
