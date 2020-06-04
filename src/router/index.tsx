@@ -4,7 +4,7 @@ import routes from './routes'
 
 /* Use components to define routes */
 const RouterView = () => (
-  <BrowserRouter>
+  <BrowserRouter basename="/react-cli">
     <Switch>
       {routes.map(route => (
         <Route
