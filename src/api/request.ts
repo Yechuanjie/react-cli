@@ -4,7 +4,7 @@ import envConfig from '@/config'
 import { Toast } from 'antd-mobile'
 import { getHttpStatusText } from './status'
 /**
- * 接口返回类型 (根据后端的统一格式)
+ * 接口返回类型 (根据后端返回的格式定义)
  * @interface ResponseType
  */
 interface ResponseType {
