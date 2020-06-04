@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 
 import Loading from '@/components/loading'
-
 import logo from '@/assets/logo192.png'
+import * as API from '@/api/index'
 
 import './index.scss'
 
 function Index() {
   const [showLoading, setshowLoading] = useState(true)
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setshowLoading(false)
-    }, 2000)
-    return () => clearTimeout(timer)
+    API.getMainPageInfo({
+      mockType: 1,
+      source: 'web',
+      useType: 2
+    })
   }, [])
 
   return (

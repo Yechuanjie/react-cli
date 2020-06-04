@@ -2,7 +2,7 @@
 /* 环境变量 */
 type EnvConfig = {
   ENV_TYPE: string
-  API_DOMAIN: string
+  BASE_URL: string
 }
 
 interface ListCodeDetail {

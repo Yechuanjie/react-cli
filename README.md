@@ -155,7 +155,7 @@ export default config.default
 // 测试环境配置
 export default {
   ENV_TYPE: '测试环境',
-  API_DOMAIN: '//test.xxx.com' // api请求地址
+  BASE_URL: '//test.xxx.com' // api请求地址
   OTHER_GLOBAL_VAR: 'xxx' // 可添加自定义的公共变量
 }
 ```
@@ -168,7 +168,7 @@ console.info(config)
 // config
 {
   ENV_TYPE: '测试环境',
-  API_DOMAIN: '//xxx.xxx.com'
+  BASE_URL: '//xxx.xxx.com'
   OTHER_GLOBAL_VAR: 'xxx'
 }
 ```

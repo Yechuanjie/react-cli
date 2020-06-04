@@ -1,8 +1,5 @@
-import { request } from 'http'
+import request from './request'
 
-const api = ''
-export default api
-
-export const getList = (params: { deadline: string }) => {
-  request('/shopapi/goodsActivation/addActivationCollection')
+export const getMainPageInfo = (parmas: { mockType: number; source: string; useType: number }) => {
+  request.post('/userapi/realUser/getMainPageInfo')
 }
