@@ -12,45 +12,45 @@ interface ResponseType {
   code: number
 }
 
-/* 请求公共参数配置 */
-const publicParams = {
-  env: envConfig.ENV_TYPE,
-  mockType: 1,
-  source: 'h5'
-}
+const initAxios = (loading?: boolean) => {
+  /* 创建一个axios实例 */
+  const AxiosInstance = axios.create({
+    baseURL: envConfig.BASE_URL,
+    timeout: 5000,
+    withCredentials: false
+  })
 
-/* 创建一个axios实例 */
-const AxiosInstance = axios.create({
-  baseURL: envConfig.BASE_URL,
-  timeout: 5000,
-  withCredentials: false
-})
-
-// request interceptor
-AxiosInstance.interceptors.request.use(config => {
-  // 自定义headers
-  config.headers = {
-    'Content-Type': 'application/json'
-  }
-  return config
-})
-
-// response interceptor
-AxiosInstance.interceptors.response.use(
-  response => {
-    const res = response
-    if (res.status && res.status !== 200) {
-      Toast.info(getHttpStatusText(res.status))
-      return Promise.reject(res || 'error')
-    } else {
-      return Promise.resolve(res)
+  // request interceptor
+  AxiosInstance.interceptors.request.use(config => {
+    if (loading) Toast.loading('加载中')
+    // 自定义headers
+    config.headers = {
+      'Content-Type': 'application/json'
     }
-  },
-  error => {
-    Toast.info(getHttpStatusText(null, error))
-    return Promise.reject(error)
-  }
-)
+    return config
+  })
+
+  // response interceptor
+  AxiosInstance.interceptors.response.use(
+    response => {
+      Toast.hide()
+      const res = response
+      if (res.status && res.status !== 200) {
+        Toast.info(getHttpStatusText(res.status))
+        return Promise.reject(res || 'error')
+      } else {
+        return Promise.resolve(res)
+      }
+    },
+    error => {
+      Toast.hide()
+      Toast.info(getHttpStatusText(null, error))
+      return Promise.reject(error)
+    }
+  )
+
+  return AxiosInstance
+}
 
 /**
  * 封装request
@@ -58,9 +58,21 @@ AxiosInstance.interceptors.response.use(
  * @param {string} url
  * @param {Method} method
  * @param {*} [data]
+ * @param {boolean} [loading]
  * @returns {Promise<ResponseType>}
  */
-export default function request(url: string, method: Method, data?: {}): Promise<ResponseType> {
+export default function request(
+  url: string,
+  method: Method,
+  data?: {},
+  loading?: boolean
+): Promise<ResponseType> {
+  /* 请求公共参数配置 */
+  const publicParams = {
+    env: envConfig.ENV_TYPE,
+    mockType: 1,
+    source: 'h5'
+  }
   // 合并公共参数
   data = Object.assign({}, data, publicParams)
   const options: AxiosRequestConfig = {
@@ -69,6 +81,8 @@ export default function request(url: string, method: Method, data?: {}): Promise
     params: method.toUpperCase() === 'GET' || method.toUpperCase() === 'DELETE' ? data : null,
     data: method.toUpperCase() === 'POST' || method.toUpperCase() === 'PUT' ? data : null
   }
+
+  const AxiosInstance = initAxios(loading)
   return new Promise((resolve, reject) => {
     AxiosInstance(options)
       .then(res => {

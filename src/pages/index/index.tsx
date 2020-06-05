@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-
 import bg from '@/assets/preload-bg@2x.png'
 import inner from '@/assets/preload-inner@2x.png'
 import * as API from '@/api/index'
@@ -23,7 +22,7 @@ function Index() {
       phone: '18888888888',
       password: 'xxxxxxxx'
     })
-    console.info(update.data)
+    console.info(update)
   }
 
   return (
