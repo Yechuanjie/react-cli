@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, Method } from 'axios'
-import qs from 'qs'
 import envConfig from '@/config'
 import { Toast } from 'antd-mobile'
 import { getHttpStatusText } from './status'
@@ -68,8 +67,7 @@ export default function request(url: string, method: Method, data?: {}): Promise
     url,
     method,
     params: method.toUpperCase() === 'GET' || method.toUpperCase() === 'DELETE' ? data : null,
-    data:
-      method.toUpperCase() === 'POST' || method.toUpperCase() === 'PUT' ? qs.stringify(data) : null
+    data: method.toUpperCase() === 'POST' || method.toUpperCase() === 'PUT' ? data : null
   }
   return new Promise((resolve, reject) => {
     AxiosInstance(options)

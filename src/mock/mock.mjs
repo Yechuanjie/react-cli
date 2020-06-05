@@ -36,8 +36,16 @@ router.get('/getInfo', (req, res) => {
 
 /*
  * post类型接口
- * /api/updateData 更新数据
+ * /api/updateInfo 更新数据
  */
-router.post('/updateData', (req, res) => {})
+router.post('/updateInfo', (req, res) => {
+  const data = req.body
+  console.info(data)
+  return res.json({
+    code: 200,
+    data: true,
+    msg: '操作成功'
+  })
+})
 
 export default router

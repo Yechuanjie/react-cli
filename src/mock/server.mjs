@@ -13,11 +13,16 @@ import bodyParser from 'body-parser'
 const app = express()
 // body-parser 解析json格式数据
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 const router = express.Router()
 
 router.use('/', mockData)
+app.use('/api', router)
+
+app.listen(3001, () => {
+  console.log('Example app listening on port 3001!')
+})
 
 /* 不建议服务端开启所有origin * 跨域，开放跨域权限会存在一定安全隐患 */
 /* dev环境下，通过 src/setupProxy.js 文件配置跨域 */
@@ -30,9 +35,3 @@ router.use('/', mockData)
 //   res.header('Access-Control-Allow-Headers', 'Content-Type')
 //   next()
 // })
-
-app.use('/api', router)
-
-app.listen(3001, () => {
-  console.log('Example app listening on port 3001!')
-})
