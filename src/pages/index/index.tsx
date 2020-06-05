@@ -8,12 +8,8 @@ import * as API from '@/api/index'
 import './index.scss'
 
 const getInfo = () => {
-  API.getSentence({
-    DateKey: '2020-06-04',
-    cid: 'ios',
-    model: 'ios13.2.3'
-  }).then(res => {
-    console.info('object', res)
+  API.getList({ type: 1 }).then(res => {
+    console.info(res)
   })
 }
 
