@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import bg from '@/assets/preload-bg@2x.png'
 import inner from '@/assets/preload-inner@2x.png'
 import * as API from '@/api/index'
-// import md5 from 'js-md5'
 
 import './index.scss'
 

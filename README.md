@@ -18,7 +18,7 @@
 
 - [✔ axios 封装及接口管理](#)
 
-- [✖ mock server](#)
+- [✖ 本地 mock server 支持](#)
 
 - [✔ sass 支持，全局样式](#)
 
