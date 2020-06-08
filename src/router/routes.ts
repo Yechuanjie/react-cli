@@ -1,6 +1,5 @@
 import Loadable from 'loadable-components'
 /* Import the components by Loadable */
-const AppTabBar = Loadable(() => import('@/components/tabbar'))
 const About = Loadable(() => import('@/pages/about'))
 const Index = Loadable(() => import('@/pages/index'))
 const Detail = Loadable(() => import('@/pages/detail'))
