@@ -6,18 +6,11 @@ const router = express.Router()
  * /api/getInfo 获取列表
  */
 router.get('/getInfo', (req, res) => {
+  console.info(req.query.type)
   const data = Mock.mock({
     'list|1-8': [
       {
-        'id|+1': 1,
-        'desc|1-10': '😋',
-        'show|1': true,
-        'citys|2': {
-          '310000': '重庆市',
-          '320000': '上海市',
-          '330000': '浙江省',
-          '340000': '江苏省'
-        },
+        
         'info|1-10': [
           {
             'name|1': ['John', 'Jessen', 'Mark'],

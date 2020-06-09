@@ -12,29 +12,31 @@
 
 - [✔ redux 状态管理](#redux)
 
-- [✔ react-router 路由管理](#)
+- [✔ react-router 路由管理](#router)
 
-- [✔ 路由懒加载](#)
+- [✔ axios 封装及接口管理](#axios)
 
-- [✔ axios 封装及接口管理](#)
+- [✔ 本地 mock server 支持](#mock)
 
-- [✔ 本地 mock server 支持](#)
+- [✔ 本地跨域配置](#proxy)
 
-- [✔ sass 支持，全局样式](#)
+- [✔ esint + prettier 统一开发规范](#eslint)
 
-- [✔ esint + prettier 统一开发规范](#)
+- [✔ 支持自定义 webpack 配置](#webpack)
 
-- [✔ rem 适配方案 ](#)
+- [✔ rem 适配方案 ](#rem)
 
-- [✔ 支持自定义 webpack 配置 ](#)
-
-- [✔ antd-moblie 组件按需加载](#)
+- [✔ antd-moblie 组件按需加载](#antd)
 
 - [✔ 配置 alias 别名](#alias)
 
 - [✔ 配置多环境变量](#env)
 
 #### <span id="ts">✅ TypeScript 开发语言</span>
+
+`TypeScript` 是 `JavaScript` 类型的超集，它可以编译成纯  `JavaScript`
+
+`TypeScript` 可以在任何浏览器、任何计算机和操作系统上运行
 
 #### <span id="redux">✅ redux 状态管理</span>
 
@@ -103,9 +105,317 @@ function Index() {
 }
 ```
 
+#### <span id="router"> ✅ react-router路由管理</span>
+
+本项目采用 `history` 模式，如需使用 `hash` 模式，请使用 `HashRouter` 替换 `BrowserRouter`
+
+`basename` 属性可以根据项目路径来修改，例如本项目地址为：[http://yechuanjie.com/react-cli](http://yechuanjie.com/react-cli)，则 `basename="/react-cli"`，若不需要子路径，则默认`basename = '/'`
+
+`src/router/routes.ts`
+
+```ts
+import { lazy } from 'react'
+const Index = lazy(() => import('@/pages/index'))
+
+export const routes: RouteConfig[] = [
+  {
+    path: '/index',
+    component: Index,
+    exact: true,
+    routes: []
+  }
+]
+```
+
+`src/router/index.tsx`
+
+```tsx
+import React, { Suspense } from 'react'
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
+import { routes } from './routes'
+
+const RouterView = () => (
+  <BrowserRouter basename="/react-cli">
+    <Suspense fallback={<div>加载中</div>}>
+      <Switch>
+        {routes.map(route => (
+          <Route key={route.path} path={route.path} component={route.component} exact={route.exact}></Route>
+        ))}
+        <Redirect to="/index"></Redirect>
+      </Switch>
+    </Suspense>
+  </BrowserRouter>
+)
+export default RouterView
+```
+
+使用 `lazy`  +  `Suspense` 的方式实现路由懒加载以及组件异步加载
+
+#### <span id="axios">✅ axios封装及接口管理</span>
+
+将 `axios` 请求进行二次封装，统一请求方式、实现公共参数配置、实现统一的错误拦截处理，并返回与后端统一的 `Promise<ResponseType>` 对象
+
+`request` 封装 ，`src/api/request.ts`
+
+```ts
+import axios, { AxiosRequestConfig, Method } from 'axios'
+import envConfig from '@/config'
+/**
+ * 接口返回类型 (根据后端返回的格式定义)
+ * @interface ResponseType
+ */
+interface ResponseType {
+  data: any
+  msg: string
+  code: number
+}
+/**
+ * 封装request
+ *
+ * @param {string} url
+ * @param {Method} method
+ * @param {*} [data]
+ * @param {boolean} [loading]
+ * @returns {Promise<ResponseType>}
+ */
+export default function request(url: string, method: Method, data?: {}, loading?: boolean): Promise<ResponseType> {
+  /* 请求公共参数配置 */
+  const publicParams = {
+    env: envConfig.ENV_TYPE,
+    mockType: 1,
+    source: 'h5'
+  }
+  // 合并公共参数
+  data = Object.assign({}, data, publicParams)
+  const options: AxiosRequestConfig = {
+    url,
+    method,
+    params: method.toUpperCase() === 'GET' || method.toUpperCase() === 'DELETE' ? data : null,
+    data: method.toUpperCase() === 'POST' || method.toUpperCase() === 'PUT' ? data : null
+  }
+
+  const AxiosInstance = initAxios(loading)
+  return new Promise((resolve, reject) => {
+    AxiosInstance(options)
+      .then(res => {
+        const data = res.data as ResponseType
+        // 这里可以添加和后台的 status 约定
+        // if (data.code !== 200) {
+        //   Toast.info(data.msg)
+        // }
+        resolve(data)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+```
+
+接口管理  `src/api/index.ts`
+
+```ts
+import request from './request'
+
+export const getList = (params: { type: number }) => request('/api/getInfo', 'GET', { ...params }, true)
+```
+
+使用封装的`request`
+
+```ts
+import * as API from '@/api/index'
+const updateInfo = async () => {
+  // get 请求
+  const list = await API.getList({ type: 1 })
+  console.info(list) // 请求结果就是封装后的 Promise<ResponseType> 类型
+}
+```
+
+#### <span id="mock">✅ 本地 mock server 支持</span>
+
+`src/mock`  实现了本地 `mock server` 开发。
+
+注意： `nodejs` 环境下默认不支持 `esModules`，将`src/mock`下的文件，修改为`.mjs`后缀，同时在`package.json` 的`scripts`中新增`experimental-modules`命令使其可以使用`esModules`
+
+`package.json`
+
+```json
+scripts: { 
+  "mock": "node --experimental-modules src/mock/server.mjs"
+}
+```
+
+本项目使用 `express` 作为服务器开发
+
+`src/mock/server.mjs`
+
+```javascript
+import express from 'express'
+import mockData from './mock.mjs'
+import bodyParser from 'body-parser'
+
+const app = express()
+// body-parser 解析json格式数据
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+const router = express.Router()
+
+router.use('/', mockData)
+app.use('/api', router)
+
+app.listen(3001, () => {
+  console.log('Example app listening on port 3001!')
+})
+```
+
+mock数据根据需求在`src/mock/mock.mjs`中自定义修改，更多mock使用方式可以查看[mock官方示例](%5Bhttp://mockjs.com/examples.html%5D(http://mockjs.com/examples.html))。
+
+`src/mock/mock.mjs`
+
+```javascript
+import Mock from 'mockjs'
+import express from 'express'
+const router = express.Router()
+/*
+ * get类型接口
+ * /api/getInfo 获取列表
+ */
+router.get('/getInfo', (req, res) => {
+  console.info(req.query.type)
+  const data = Mock.mock({
+    'list|1-8': [
+      {
+        'name|1': ['John', 'Jessen', 'Mark'],
+        'desc|1': ['Hello', 'React-cli', 'Try it!']
+      }
+    ]
+  })
+  return res.json({
+    data,
+    code: 200,
+    msg: ''
+  })
+})
+```
+
+开启本地 `mock` 服务
+
+```shell
+yarn mock
+```
+
+本地开启 `mock` 服务后，所有本地 `api` 请求都会导致**跨域问题**，请参考[✅ 本地跨域配置](#proxy)
+
+#### <span id="proxy">✅ 本地跨域配置</span>
+
+为解决本地接口请求跨域，需要使用到 `http-proxy-middleware` 中间件。在src根目录下创建`setupProxy.js`文件，注意这里只能使用 `.js` 后缀，因为该中间件默认读取的是 `js` 文件
+
+`src/setupProxy.js`
+
+```javascript
+const { createProxyMiddleware } = require('http-proxy-middleware')
+module.exports = function (app) {
+  app.use(
+    createProxyMiddleware('/api', {
+      // 代理服务器地址
+      target: 'http://localhost:3001',
+      secure: false,
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api': '/api'
+      }
+    })
+  )
+}
+```
+
+这样一来，就可以愉快的在本地请求自己的`mock`数据啦！
+
+#### <span id="eslint">✅ eslint + prettier统一开发规范</span>
+
+在`package.json`文件中编写自定义`eslint`规则
+
+```json
+{
+  "eslintConfig": {
+    "extends": "react-app",
+    "rules": {
+       "import/no-commonjs": 0
+    }
+  }
+}
+```
+
+编写统一的`prettier`规范文件  `.prettierrc`
+
+```json
+{
+  "singleQuote": true,
+  "semi": false,
+  "printWidth": 120,
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "trailingComma": "none"
+}
+```
+
+#### <span id="webpack">✅ 支持自定义 webpack 配置</span>
+
+通过 `customize-cra` 暴露  `webpack`  配置的`config-overrides.js`文件，使我们可以不用 `eject` 的方式就能在这里覆盖重写 `webpack` 配置，目前已支持几十种相关配置自定义，具体可查看[customize-cra api docs]([https://github.com/arackaf/customize-cra/blob/HEAD/api.md](https://github.com/arackaf/customize-cra/blob/HEAD/api.md))。
+
+#### <span id="rem">✅ rem适配方案 </span>
+
+项目已经配置好 `rem` 适配，下面仅做介绍：
+
+`antd-mobile` 中的样式默认使用`px`作为单位，如果需要使用`rem`单位，推荐使用`postcss-px2rem` 搭配 `src/utils/rem.ts`一起使用。其中 `src/utils/rem.ts` 实现了一个极简的rem库。
+
+`postcss-px2rem` 插件使用
+
+* 假如设计图给的宽度是750，remUnit设置为75，这样我们写样式时，可以直接按照设计图标注的宽高来1:1还原开发。
+
+* PS: 如果引用了某些没有兼容px2rem第三方UI框架，有的 1rem = 100px（antd-mobile）， 有的 1rem = 75px
+
+* 需要将remUnit的值设置为像素对应的一半（antd-mobile即50），即可以1:1还原组件，否则会样式会有变化，例如按钮会变小。
+
+`config-overrides.js`，使用`addPostcssPlugins`设置
+
+```javascript
+const { override, addPostcssPlugins } = require('customize-cra')
+module.exports = override(
+ addPostcssPlugins([require('postcss-px2rem')({ remUnit: 50 })])
+)
+```
+
+#### <span id='antd'>✅ antd-moblie 组件按需加载</span>
+
+[babel-plugin-import](https://github.com/ant-design/babel-plugin-import) 是一款 `babel` 插件，它会在编译过程中将 `import` 的写法自动转换为按需引入的方式。
+
+安装插件
+
+```shell
+yarn add babel-plugin-import
+```
+
+`config-overrides.js`，使用`fixBabelImports`设置
+
+```javascript
+const { override, fixBabelImports } = require('customize-cra')
+// 引用 antd 后设置按需引入后，在打包的时候会生成很多 .map 文件
+process.env.GENERATE_SOURCEMAP = 'false'
+module.exports = override(
+  /* 按需引入antd-mobile */
+  fixBabelImports('import', {
+    libraryName: 'antd-mobile',
+    style: 'css'
+  })
+)
+```
+
 #### <span id="alias">✅ 配置 alias 别名</span>
 
-通过 `customize-cra` 暴露 webpack 配置的`config-overrides.js`文件中，使用`addWebpackAlias`设置
+`config-overrides.js`，使用`addWebpackAlias`设置
 
 ```javascript
 const { override, addWebpackAlias } = require('customize-cra')
@@ -114,17 +424,8 @@ const resolve = dir => path.join(__dirname, dir)
 module.exports = override(
   addWebpackAlias({
     '@/': resolve('src'),
-    '@/components': resolve('./src/components'),
-    '@/utils': resolve('./src/utils'),
     '@/pages': resolve('./src/pages'),
-    '@/store': resolve('./src/store'),
-    '@/api': resolve('./src/api'),
-    '@/router': resolve('./src/router'),
-    '@/assets': resolve('./src/assets'),
-    '@/reducer': resolve('./src/reducer'),
-    '@/action': resolve('./src/action'),
-    '@/constant': resolve('./src/constant'),
-    '@/config': resolve('./src/config')
+    '@/api': resolve('./src/api')
   })
 )
 ```
