@@ -23,11 +23,8 @@ const tabs = [
 ]
 function AppTabBar() {
   const history = useHistory()
-
   const pathname = history.location.pathname
-
   const [tabBar, settabBar] = useState(tabs)
-
   const changeTab = (index: number, path: string) => {
     settabBar(
       tabBar.map((tab, idx) => {
@@ -37,9 +34,8 @@ function AppTabBar() {
     )
     history.push(path)
   }
-
+  
   const [hideTab, sethideTab] = useState(false)
-
   useEffect(() => {
     sethideTab(!tabs.map(item => item.path).includes(pathname))
   }, [pathname])

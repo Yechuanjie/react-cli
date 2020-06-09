@@ -45,6 +45,7 @@ const initAxios = (loading?: boolean) => {
     },
     error => {
       Toast.hide()
+      console.info(error)
       Toast.info(getHttpStatusText(null, error))
       return Promise.reject(error)
     }

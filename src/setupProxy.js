@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     createProxyMiddleware('/api', {
       // 代理服务器地址
-      target: 'http://localhost:3001',
+      target: 'http://localhost:3002',
       secure: false,
       changeOrigin: true,
       pathRewrite: {

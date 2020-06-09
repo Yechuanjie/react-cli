@@ -27,7 +27,7 @@ export const HTTP_TEXT = {
 }
 
 export const getHttpStatusText = function (code: number | null, err?: any): string {
-  code = typeof err.resoponse === 'string' ? null : err.response.status ? err.response.status : null
+  code = err.resoponse && typeof err.resoponse === 'string' ? null : err.response.status ? err.response.status : null
   for (const key in HTTP_STATUS) {
     if (HTTP_STATUS[key] === code) {
       const text = HTTP_TEXT[key]
