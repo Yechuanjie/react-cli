@@ -10,7 +10,7 @@
 
 - [✔ TypeScript 开发语言](#ts)
 
-- [✔ redux 状态管理](#)
+- [✔ redux 状态管理](#redux)
 
 - [✔ react-router 路由管理](#)
 
@@ -36,7 +36,72 @@
 
 #### <span id="ts">✅ TypeScript 开发语言</span>
 
+#### <span id="redux">✅ redux 状态管理</span>
 
+目录结构
+
+```
+├─store
+│  │ index.ts
+│  │
+│  ├─actions
+│  │   user.ts
+│  │
+│  └─reducers
+│      index.ts
+│      user.ts
+```
+
+拆分reducer
+
+`store/index`  中 `combineReducers()` 方法将多个小的 reducer 组合成一个 rootReducer，而每个小的 reducer 只关心自己负责的 `action.type`
+
+ `src/index.tsx` 中引入
+
+```tsx
+import { Provider } from 'react-redux'
+import store from './store'
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+)
+```
+
+使用
+
+```tsx
+
+import { useSelector, useDispatch } from 'react-redux'
+import { setAppUserInfo } from '@/store/actions/user' 
+
+function Index() {
+  const userInfo = useSelector((state: PageStateProps) => state.user)
+  const dispath = useDispatch()
+
+  const updateInfo = () => {
+    dispath(
+      setAppUserInfo({
+        userId: '413',
+        nickName: 'developer',
+        sex: 1
+      })
+    )
+  }
+  return (
+    <div className="page">
+      <div onClick={updateInfo}>
+        <Logo></Logo>
+      </div>
+      <div className="welcome">hello {userInfo.nickName}!</div>
+    </div>
+  )
+}
+```
 
 #### <span id="alias">✅ 配置 alias 别名</span>
 
