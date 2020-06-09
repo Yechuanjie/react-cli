@@ -29,7 +29,7 @@ module.exports = override(
     '@/assets': resolve('./src/assets'),
     '@/reducer': resolve('./src/reducer'),
     '@/action': resolve('./src/action'),
-    '@/constant': resolve('./src/constant'),
+    '@/constants': resolve('./src/constants'),
     '@/config': resolve('./src/config')
   }),
   /* 按需引入antd-mobile */

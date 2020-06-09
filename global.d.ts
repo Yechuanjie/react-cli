@@ -4,6 +4,11 @@ type EnvConfig = {
   BASE_URL: string
 }
 
+/* 用户数据 */
+type AppUserInfo = {
+  nickName: string
+}
+
 interface ListCodeDetail {
   pageNum: 75698133.94500294
   pageSize: -20044393.710236892

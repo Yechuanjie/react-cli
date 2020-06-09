@@ -27,18 +27,17 @@ export const HTTP_TEXT = {
 }
 
 export const getHttpStatusText = function (code: number | null, err?: any): string {
-  code = err.resoponse && typeof err.resoponse === 'string' ? null : err.response.status ? err.response.status : null
   for (const key in HTTP_STATUS) {
     if (HTTP_STATUS[key] === code) {
       const text = HTTP_TEXT[key]
       return text
     }
   }
-  if (err && err.response && err.response.indexOf('timeout') > -1) {
-    return '请求超时，请稍后重试！'
-  }
-  if (err && err.response && err.response.indexOf('Network') > -1) {
-    return '请求失败, 请检查网络连接'
-  }
+  // if (err && err.indexOf('timeout') > -1) {
+  //   return '请求超时，请稍后重试！'
+  // }
+  // if (err && err.indexOf('Network') > -1) {
+  //   return '请求失败, 请检查网络连接'
+  // }
   return `未知错误`
 }
