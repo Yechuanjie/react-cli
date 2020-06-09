@@ -7,7 +7,7 @@ type Iprops = {
   show: boolean
 }
 
-function Loading(props: Iprops) {
+export default function Loading(props: Iprops) {
   return props.show ? (
     <div className="custom-loading">
       <div className="custom-loading-round"></div>
@@ -16,4 +16,10 @@ function Loading(props: Iprops) {
   ) : null
 }
 
-export default Loading
+/* loading组件的 React.Element */
+export const LoadingElement = React.createElement(
+  'div',
+  { className: 'custom-loading' },
+  React.createElement('div', { className: 'custom-loading-round' }),
+  React.createElement('div', { className: 'custom-loading-text' }, '加载中')
+)

@@ -11,9 +11,9 @@ const About = () => {
   return (
     <div className="page">
       <div className="title">About page...</div>
-      <div className="in" onClick={toIndx}>
+      <button className="btn" onClick={toIndx}>
         点击跳转到首页
-      </div>
+      </button>
     </div>
   )
 }

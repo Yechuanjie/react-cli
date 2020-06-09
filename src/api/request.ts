@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, Method } from 'axios'
 import envConfig from '@/config'
 import { Toast } from 'antd-mobile'
 import { getHttpStatusText } from './status'
+import { LoadingElement } from '@/components/loading'
 /**
  * 接口返回类型 (根据后端返回的格式定义)
  * @interface ResponseType
@@ -22,7 +23,8 @@ const initAxios = (loading?: boolean) => {
 
   // request interceptor
   AxiosInstance.interceptors.request.use(config => {
-    if (loading) Toast.loading('加载中')
+    // if (loading) Toast.loading('加载中')
+    if (loading) Toast.loading(LoadingElement)
     // 自定义headers
     config.headers = {
       'Content-Type': 'application/json'
@@ -34,12 +36,11 @@ const initAxios = (loading?: boolean) => {
   AxiosInstance.interceptors.response.use(
     response => {
       Toast.hide()
-      const res = response
-      if (res.status && res.status !== 200) {
-        Toast.info(getHttpStatusText(res.status))
-        return Promise.reject(res || 'error')
+      if (response && response.status && response.status !== 200) {
+        Toast.info(getHttpStatusText(response.status))
+        return Promise.reject(response || 'error')
       } else {
-        return Promise.resolve(res)
+        return Promise.resolve(response)
       }
     },
     error => {
@@ -61,12 +62,7 @@ const initAxios = (loading?: boolean) => {
  * @param {boolean} [loading]
  * @returns {Promise<ResponseType>}
  */
-export default function request(
-  url: string,
-  method: Method,
-  data?: {},
-  loading?: boolean
-): Promise<ResponseType> {
+export default function request(url: string, method: Method, data?: {}, loading?: boolean): Promise<ResponseType> {
   /* 请求公共参数配置 */
   const publicParams = {
     env: envConfig.ENV_TYPE,
