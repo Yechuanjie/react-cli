@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   isLogin: false
 }
 
-export default function user(state = INITIAL_STATE, action) {
+export default function login(state = INITIAL_STATE, action: { type: string; value: any }) {
   switch (action.type) {
     case LOGIN:
       return {

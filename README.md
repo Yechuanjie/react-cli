@@ -4,11 +4,11 @@
 
 该脚手架基于 [Create React App](https://github.com/facebook/create-react-app) 创建，方便快速搭建规范的、可直接进入业务开发的 react 移动端项目
 
-项目技术栈: react + antd-moblie + typescript + react-router + redux + sass
+项目技术栈: react + antd-moblie + typescript + react-router + redux
 
 ### <span id="top">目录</span>
 
-- [✔ typescript 开发语言](#)
+- [✔ TypeScript 开发语言](#ts)
 
 - [✔ redux 状态管理](#)
 
@@ -33,6 +33,10 @@
 - [✔ 配置 alias 别名](#alias)
 
 - [✔ 配置多环境变量](#env)
+
+#### <span id="ts">✅ TypeScript 开发语言</span>
+
+
 
 #### <span id="alias">✅ 配置 alias 别名</span>
 
@@ -108,7 +112,7 @@ module.exports = override(
 在代码中可以通过 `process.env.REACT_APP_ENV` 访问所在的环境变量。除了 `REACT_APP_*` 变量之外，在你的应用代码中始终可用的还有两个特殊的变量`NODE_ENV` 和`BASE_URL`
 
 - **.env.development**
-
+  
   ```javascript
   # 测试环境
   # must start with REACT_APP_
@@ -116,7 +120,7 @@ module.exports = override(
   ```
 
 - **.env.staging**
-
+  
   ```javascript
   # 预发布环境
   # must start with REACT_APP_
@@ -124,7 +128,7 @@ module.exports = override(
   ```
 
 - **.env.production**
-
+  
   ```javascript
   # 正式环境
   # must start with REACT_APP_
