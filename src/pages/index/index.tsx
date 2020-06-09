@@ -1,42 +1,55 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { setAppUserInfo } from '@/store/actions/user'
 
-import bg from '@/assets/preload-bg@2x.png'
-import inner from '@/assets/preload-inner@2x.png'
+import Logo from '@/components/logo'
 import * as API from '@/api/index'
 
 import './index.scss'
 
-const getInfo = async () => {
-  const data = await API.getList({ type: 1 })
-  return data.data
+type PageStateProps = {
+  user: AppUserInfo
 }
 
 function Index() {
-  const history = useHistory()
+  const userInfo = useSelector((state: PageStateProps) => state.user)
+  const dispath = useDispatch()
 
   const updateInfo = async () => {
-    getInfo().then(res => console.info(res))
+    // get 请求
+    const list = await API.getList({ type: 1 })
+    console.info(list)
 
+    // post 请求
     const update = await API.updateInfo({
       name: 'Jhon',
       phone: '18888888888',
       password: 'xxxxxxxx'
     })
     console.info(update)
+
+    // 测试 dispath action
+    dispath(
+      setAppUserInfo({
+        userId: '413',
+        nickName: 'developer',
+        sex: 1
+      })
+    )
   }
 
+  const history = useHistory()
   const toDetail = () => {
     history.push('/detail')
   }
 
   return (
     <div className="page">
-      <div className="logo" onClick={updateInfo}>
-        <img className="bg" src={bg} alt="" />
-        <img className="inner" src={inner} alt="" />
+      <div onClick={updateInfo}>
+        <Logo></Logo>
       </div>
-      <div>首页</div>
+      <div className="welcome">hello {userInfo.nickName}!</div>
 
       <button className="btn" onClick={toDetail}>
         点击跳转至详情页

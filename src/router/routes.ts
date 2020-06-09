@@ -3,20 +3,20 @@ const About = lazy(() => import('@/pages/about'))
 const Index = lazy(() => import('@/pages/index'))
 const Detail = lazy(() => import('@/pages/detail'))
 
-export interface routerConfigModel {
+export interface RouteConfig {
   path: string
   component?: any
   exact?: boolean
-  children?: Array<routerConfigModel>
+  routes?: Array<RouteConfig>
   redirect?: string
-  tab?: boolean
 }
 
-export const routes: routerConfigModel[] = [
+export const routes: RouteConfig[] = [
   {
     path: '/index',
     component: Index,
-    exact: true
+    exact: true,
+    routes: []
   },
   {
     path: '/about',

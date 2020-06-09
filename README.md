@@ -10,7 +10,7 @@
 
 - [✔ typescript 开发语言](#)
 
-- [✖ redux 状态管理](#)
+- [✔ redux 状态管理](#)
 
 - [✔ react-router 路由管理](#)
 
@@ -18,7 +18,7 @@
 
 - [✔ axios 封装及接口管理](#)
 
-- [✖ 本地 mock server 支持](#)
+- [✔ 本地 mock server 支持](#)
 
 - [✔ sass 支持，全局样式](#)
 

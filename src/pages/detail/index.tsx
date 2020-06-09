@@ -1,16 +1,12 @@
 import React from 'react'
-import bg from '@/assets/preload-bg@2x.png'
-import inner from '@/assets/preload-inner@2x.png'
+import Logo from '@/components/logo'
 
 import './index.scss'
 
 function Detail() {
   return (
-    <div className="page">
-      <div className="logo">
-        <img className="bg" src={bg} alt="" />
-        <img className="inner" src={inner} alt="" />
-      </div>
+    <div className="detail-page">
+      <Logo></Logo>
       <div>详情页， 不带tabbar</div>
     </div>
   )

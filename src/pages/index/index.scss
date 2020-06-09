@@ -8,30 +8,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  .logo {
-    position: relative;
-    width: 142px;
-    height: 136px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    .bg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-    .inner {
-      width: 112px;
-      height: 122px;
-      z-index: 1;
-    }
-  }
+  
   .btn {
-    padding: 0 15px;
-    height: 50px;
+    padding: 10px;
     border: 1px solid seagreen;
     border-radius: 10px;
     margin-top: 30px;
+    font-size: 16px;
+  }
+  .welcome {
+    font-weight: bold;
+    font-size: 20px;
   }
 }

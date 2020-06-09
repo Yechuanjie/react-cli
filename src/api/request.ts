@@ -13,18 +13,21 @@ interface ResponseType {
   code: number
 }
 
+const TIMEOUT = 5000
+
 const initAxios = (loading?: boolean) => {
   /* 创建一个axios实例 */
   const AxiosInstance = axios.create({
     baseURL: envConfig.BASE_URL,
-    timeout: 5000,
+    timeout: TIMEOUT,
     withCredentials: false
   })
 
   // request interceptor
   AxiosInstance.interceptors.request.use(config => {
     // if (loading) Toast.loading('加载中')
-    if (loading) Toast.loading(LoadingElement)
+    // 使用自定义loading
+    if (loading) Toast.loading(LoadingElement, TIMEOUT)
     // 自定义headers
     config.headers = {
       'Content-Type': 'application/json'

@@ -21,7 +21,9 @@ export const setLoginIn = () => {
     setTimeout(() => {
       dispatch(login())
       const info: AppUserInfo = {
-        nickName: ''
+        userId: '123456',
+        nickName: 'nickname',
+        sex: 2
       }
       dispatch(setAppUserInfo(info))
     }, 1000)

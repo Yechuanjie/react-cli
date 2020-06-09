@@ -6,7 +6,9 @@ type EnvConfig = {
 
 /* 用户数据 */
 type AppUserInfo = {
+  userId: string
   nickName: string
+  sex: 0 | 1 | 2
 }
 
 interface ListCodeDetail {
