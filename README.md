@@ -557,7 +557,7 @@ console.info(config)
 // config
 {
   ENV_TYPE: '测试环境',
-  BASE_URL: '//xxx.xxx.com'
+  BASE_URL: '//test.xxx.com'
   OTHER_GLOBAL_VAR: 'xxx'
 }
 ```
