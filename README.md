@@ -34,9 +34,9 @@
 
 #### <span id="ts">✅ TypeScript 开发语言</span>
 
-`TypeScript` 是 `JavaScript` 类型的超集，它可以编译成纯  `JavaScript`
+`TypeScript` 是 `JavaScript` 类型的超集，它可以编译成纯  `JavaScript`。它的最大特点就是支持强类型和 [ES6 Class](http://es6.ruanyifeng.com/#docs/class)
 
-`TypeScript` 可以在任何浏览器、任何计算机和操作系统上运行
+[▲ 回顶部](#top)
 
 #### <span id="redux">✅ redux 状态管理</span>
 
@@ -77,7 +77,6 @@ ReactDOM.render(
 使用
 
 ```tsx
-
 import { useSelector, useDispatch } from 'react-redux'
 import { setAppUserInfo } from '@/store/actions/user' 
 
@@ -104,6 +103,8 @@ function Index() {
   )
 }
 ```
+
+[▲ 回顶部](#top)
 
 #### <span id="router"> ✅ react-router路由管理</span>
 
@@ -150,6 +151,8 @@ export default RouterView
 ```
 
 使用 `lazy`  +  `Suspense` 的方式实现路由懒加载以及组件异步加载
+
+[▲ 回顶部](#top)
 
 #### <span id="axios">✅ axios封装及接口管理</span>
 
@@ -231,6 +234,8 @@ const updateInfo = async () => {
 }
 ```
 
+[▲ 回顶部](#top)
+
 #### <span id="mock">✅ 本地 mock server 支持</span>
 
 `src/mock`  实现了本地 `mock server` 开发。
@@ -307,6 +312,8 @@ yarn mock
 
 本地开启 `mock` 服务后，所有本地 `api` 请求都会导致**跨域问题**，请参考[✅ 本地跨域配置](#proxy)
 
+[▲ 回顶部](#top)
+
 #### <span id="proxy">✅ 本地跨域配置</span>
 
 为解决本地接口请求跨域，需要使用到 `http-proxy-middleware` 中间件。在src根目录下创建`setupProxy.js`文件，注意这里只能使用 `.js` 后缀，因为该中间件默认读取的是 `js` 文件
@@ -331,6 +338,8 @@ module.exports = function (app) {
 ```
 
 这样一来，就可以愉快的在本地请求自己的`mock`数据啦！
+
+[▲ 回顶部](#top)
 
 #### <span id="eslint">✅ eslint + prettier统一开发规范</span>
 
@@ -361,9 +370,13 @@ module.exports = function (app) {
 }
 ```
 
+[▲ 回顶部](#top)
+
 #### <span id="webpack">✅ 支持自定义 webpack 配置</span>
 
 通过 `customize-cra` 暴露  `webpack`  配置的`config-overrides.js`文件，使我们可以不用 `eject` 的方式就能在这里覆盖重写 `webpack` 配置，目前已支持几十种相关配置自定义，具体可查看[customize-cra api docs]([https://github.com/arackaf/customize-cra/blob/HEAD/api.md](https://github.com/arackaf/customize-cra/blob/HEAD/api.md))。
+
+[▲ 回顶部](#top)
 
 #### <span id="rem">✅ rem适配方案 </span>
 
@@ -387,6 +400,8 @@ module.exports = override(
  addPostcssPlugins([require('postcss-px2rem')({ remUnit: 50 })])
 )
 ```
+
+[▲ 回顶部](#top)
 
 #### <span id='antd'>✅ antd-moblie 组件按需加载</span>
 
@@ -412,6 +427,8 @@ module.exports = override(
   })
 )
 ```
+
+[▲ 回顶部](#top)
 
 #### <span id="alias">✅ 配置 alias 别名</span>
 
@@ -452,6 +469,8 @@ module.exports = override(
   "@": "\${workspaceRoot}/src"
 }
 ```
+
+[▲ 回顶部](#top)
 
 #### <span id="env">✅ 配置多环境变量 </span>
 
@@ -542,3 +561,5 @@ console.info(config)
   OTHER_GLOBAL_VAR: 'xxx'
 }
 ```
+
+[▲ 回顶部](#top)

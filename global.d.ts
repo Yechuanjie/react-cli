@@ -11,7 +11,7 @@ type AppUserInfo = {
   sex: 0 | 1 | 2
 }
 
-interface ListCodeDetail {
+interface ListDetail {
   pageNum: 75698133.94500294
   pageSize: -20044393.710236892
   totalPage: 83790210.53206265
