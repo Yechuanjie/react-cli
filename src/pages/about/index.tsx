@@ -6,8 +6,8 @@ import './index.scss'
 
 const About = () => {
   const history = useHistory()
-  const toIndx = () => {
-    history.push('/index')
+  const toDetail = () => {
+    history.push('/detail')
   }
 
   return (
@@ -23,8 +23,8 @@ const About = () => {
         </a>
       </div>
       <div className="author">项目作者：Yechuanjie</div>
-      <button className="btn" onClick={toIndx}>
-        回到首页
+      <button className="btn" onClick={toDetail}>
+        路由测试
       </button>
     </div>
   )

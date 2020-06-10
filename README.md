@@ -30,6 +30,8 @@
 
 - [✔ 配置 alias 别名](#alias)
 
+- [✔ 配置打包分析](#analyze)
+
 - [✔ 配置多环境变量](#env)
 
 #### <span id="ts">✅ TypeScript 开发语言</span>
@@ -468,6 +470,33 @@ module.exports = override(
 "path-intellisense.mappings": {
   "@": "\${workspaceRoot}/src"
 }
+```
+
+[▲ 回顶部](#top)
+
+#### <span id="analyze">✅ 配置打包分析</span>
+
+webpack-bundle-analyzer 是一款分析代码大小的插件
+
+首先安装它：
+
+```shell
+yarn add webpack-bundle-analyzer
+```
+
+在 `config-overrides.js` 中，使用 `addWebpackPlugin` 设置
+
+```javascript
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+const { override, addWebpackPlugin } = require('customize-cra')
+
+const analyze = process.env.REACT_APP_ENV === 'development' //是否分析打包数据
+
+module.exports = override(
+  analyze ? addWebpackPlugin(new BundleAnalyzerPlugin({
+    analyzerMode: 'static', //输出静态报告文件report.html，而不是启动一个web服务
+  })): undefined,
+)
 ```
 
 [▲ 回顶部](#top)

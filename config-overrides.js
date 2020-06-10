@@ -3,12 +3,16 @@
  * 使用customize-cra自定义webpack配置
  */
 
-const { override, addPostcssPlugins, addWebpackAlias, fixBabelImports } = require('customize-cra')
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer') //分析插件，打包后在build/static/report.html中展示各模块所占的大小
+
+const { override, addPostcssPlugins, addWebpackAlias, fixBabelImports, addWebpackPlugin } = require('customize-cra')
 const path = require('path')
 const resolve = dir => path.join(__dirname, dir)
 
 // 引用 antd 后设置按需引入后，在打包的时候会生成很多 .map 文件
 process.env.GENERATE_SOURCEMAP = 'false'
+
+const analyze = process.env.REACT_APP_ENV === 'production' //是否分析打包数据
 
 module.exports = override(
   /**
@@ -36,5 +40,8 @@ module.exports = override(
   fixBabelImports('import', {
     libraryName: 'antd-mobile',
     style: 'css'
-  })
+  }),
+  analyze ? addWebpackPlugin(new BundleAnalyzerPlugin({
+    analyzerMode: 'static', //输出静态报告文件report.html，而不是启动一个web服务
+  })): undefined,
 )

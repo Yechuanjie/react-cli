@@ -7,7 +7,7 @@ function Detail() {
   return (
     <div className="detail-page">
       <Logo></Logo>
-      <div>详情页， 不带tabbar</div>
+      <div className="desc">详情页， 不带tabbar</div>
     </div>
   )
 }

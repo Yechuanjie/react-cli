@@ -1,9 +1,10 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAppUserInfo } from '@/store/actions/user'
 
 import Logo from '@/components/logo'
+import List from '@/components/list'
+
 import * as API from '@/api/index'
 
 import './index.scss'
@@ -17,6 +18,15 @@ function Index() {
   const dispath = useDispatch()
 
   const updateInfo = async () => {
+    // 测试 dispath action
+    dispath(
+      setAppUserInfo({
+        userId: '413',
+        nickName: 'developer',
+        sex: 1
+      })
+    )
+
     // get 请求
     const list = await API.getList({ type: 1 })
     console.info(list)
@@ -28,32 +38,18 @@ function Index() {
       password: 'xxxxxxxx'
     })
     console.info(update)
-
-    // 测试 dispath action
-    dispath(
-      setAppUserInfo({
-        userId: '413',
-        nickName: 'developer',
-        sex: 1
-      })
-    )
-  }
-
-  const history = useHistory()
-  const toDetail = () => {
-    history.push('/detail')
   }
 
   return (
-    <div className="page">
-      <div onClick={updateInfo}>
-        <Logo></Logo>
+    <div className="index-page">
+      <div className="head" onClick={updateInfo}>
+        <Logo size="small"></Logo>
+        <h2 className="title">React H5开发模板</h2>
       </div>
+      <div className="desc">基于 react + antd-mobile + ts 的 h5 开发模板</div>
       <div className="welcome">hello {userInfo.nickName}!</div>
 
-      <button className="btn" onClick={toDetail}>
-        点击跳转至详情页
-      </button>
+      <List></List>
     </div>
   )
 }
