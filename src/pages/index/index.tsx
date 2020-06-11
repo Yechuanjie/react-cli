@@ -47,7 +47,7 @@ function Index() {
         <h2 className="title">React H5开发模板</h2>
       </div>
       <div className="desc">基于 react + antd-mobile + ts 的 h5 开发模板</div>
-      <div className="welcome">hello {userInfo.nickName}!</div>
+      <div className="welcome">hello {userInfo.nickName} !</div>
 
       <List></List>
     </div>
