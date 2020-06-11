@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, Method } from 'axios'
 import envConfig from '@/config'
 import { Toast } from 'antd-mobile'
 import { getHttpStatusText } from './status'
-import { LoadingElement } from '@/components/loading'
+// import { LoadingElement } from '@/components/loading'
 /**
  * 接口返回类型 (根据后端返回的格式定义)
  * @interface ResponseType
@@ -14,6 +14,7 @@ interface ResponseType {
 }
 
 const TIMEOUT = 5000
+const TOAST_DURATION = 2
 
 const initAxios = (loading?: boolean) => {
   /* 创建一个axios实例 */
@@ -25,9 +26,9 @@ const initAxios = (loading?: boolean) => {
 
   // request interceptor
   AxiosInstance.interceptors.request.use(config => {
-    // if (loading) Toast.loading('加载中')
+    if (loading) Toast.loading('加载中')
     // 使用自定义loading
-    if (loading) Toast.loading(LoadingElement, TIMEOUT)
+    // if (loading) Toast.loading(LoadingElement, TIMEOUT)
     // 自定义headers
     config.headers = {
       'Content-Type': 'application/json'
@@ -40,7 +41,7 @@ const initAxios = (loading?: boolean) => {
     response => {
       Toast.hide()
       if (response && response.status && response.status !== 200) {
-        Toast.info(getHttpStatusText(response.status))
+        Toast.info(getHttpStatusText(response.status), TOAST_DURATION)
         return Promise.reject(response || 'error')
       } else {
         return Promise.resolve(response)
@@ -48,7 +49,7 @@ const initAxios = (loading?: boolean) => {
     },
     error => {
       Toast.hide()
-      Toast.info(getHttpStatusText(null, error))
+      Toast.info(getHttpStatusText(null, error), TOAST_DURATION)
       return Promise.reject(error)
     }
   )
