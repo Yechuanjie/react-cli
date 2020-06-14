@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .title {
     font-size: 20px;
     font-weight: bold;
@@ -12,20 +13,33 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
   .btn {
     padding: 10px;
     border: 1px solid seagreen;
     border-radius: 10px;
     margin-top: 30px;
   }
+
   .desc {
     font-size: 15px;
+
     .link {
       text-decoration-line: underline;
     }
   }
+
   .author {
     font-size: 15px;
     margin-top: 20px;
+  }
+
+  .qrcode {
+
+    img {
+      width: 200px;
+      height: 200px;
+      margin-top: 20px;
+    }
   }
 }

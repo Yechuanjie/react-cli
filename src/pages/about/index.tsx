@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 import Logo from '@/components/logo'
+import qrcode from '@/assets/qrcode.png'
 import './index.scss'
 
 const About = () => {
@@ -22,7 +23,9 @@ const About = () => {
           https://github.com/Yechuanjie/react-cli
         </a>
       </div>
-      <div className="author">项目作者：Yechuanjie</div>
+      <div className="qrcode">
+        <img src={qrcode} alt="" />
+      </div>
       <button className="btn" onClick={toDetail}>
         路由测试
       </button>
