@@ -34,7 +34,7 @@
 
 - [✔ 配置多环境变量](#env)
 
-#### <span id="ts">🎨 TypeScript 开发语言</span>
+#### <span id="ts">✅ TypeScript 开发语言</span>
 
 `TypeScript` 是 `JavaScript` 类型的超集，它可以编译成纯 `JavaScript`。它的最大特点就是支持强类型和 [ES6 Class](http://es6.ruanyifeng.com/#docs/class)
 
