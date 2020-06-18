@@ -1,10 +1,10 @@
 import axios, { AxiosRequestConfig, Method } from 'axios'
-import qs from 'qs'
 import envConfig from '@/config'
 import { Toast } from 'antd-mobile'
 import { getHttpStatusText } from './status'
+// import { LoadingElement } from '@/components/loading'
 /**
- * 接口返回类型 (根据后端的统一格式)
+ * 接口返回类型 (根据后端返回的格式定义)
  * @interface ResponseType
  */
 interface ResponseType {
@@ -13,45 +13,49 @@ interface ResponseType {
   code: number
 }
 
-/* 请求公共参数配置 */
-const publicParams = {
-  env: envConfig.ENV_TYPE,
-  mockType: 1,
-  source: 'h5'
-}
+const TIMEOUT = 5000
+const TOAST_DURATION = 2
 
-/* 创建一个axios实例 */
-const AxiosInstance = axios.create({
-  baseURL: envConfig.BASE_URL,
-  timeout: 5000,
-  withCredentials: false
-})
+const initAxios = (loading?: boolean) => {
+  /* 创建一个axios实例 */
+  const AxiosInstance = axios.create({
+    baseURL: envConfig.BASE_URL,
+    timeout: TIMEOUT,
+    withCredentials: false
+  })
 
-// request interceptor
-AxiosInstance.interceptors.request.use(config => {
-  // 自定义headers
-  config.headers = {
-    'Content-Type': 'application/json'
-  }
-  return config
-})
-
-// response interceptor
-AxiosInstance.interceptors.response.use(
-  response => {
-    const res = response
-    if (res.status && res.status !== 200) {
-      Toast.info(getHttpStatusText(res.status))
-      return Promise.reject(res || 'error')
-    } else {
-      return Promise.resolve(res)
+  // request interceptor
+  AxiosInstance.interceptors.request.use(config => {
+    if (loading) Toast.loading('加载中')
+    // 使用自定义loading
+    // if (loading) Toast.loading(LoadingElement, TIMEOUT)
+    // 自定义headers
+    config.headers = {
+      'Content-Type': 'application/json'
     }
-  },
-  error => {
-    Toast.info(getHttpStatusText(null, error))
-    return Promise.reject(error)
-  }
-)
+    return config
+  })
+
+  // response interceptor
+  AxiosInstance.interceptors.response.use(
+    response => {
+      Toast.hide()
+      if (response && response.status && response.status !== 200) {
+        Toast.info(getHttpStatusText(response.status), TOAST_DURATION)
+        return Promise.reject(response || 'error')
+      } else {
+        return Promise.resolve(response)
+      }
+    },
+    error => {
+      Toast.hide()
+      Toast.info(getHttpStatusText(null, error), TOAST_DURATION)
+      return Promise.reject(error)
+    }
+  )
+
+  return AxiosInstance
+}
 
 /**
  * 封装request
@@ -59,18 +63,26 @@ AxiosInstance.interceptors.response.use(
  * @param {string} url
  * @param {Method} method
  * @param {*} [data]
+ * @param {boolean} [loading]
  * @returns {Promise<ResponseType>}
  */
-export default function request(url: string, method: Method, data?: {}): Promise<ResponseType> {
+export default function request(url: string, method: Method, data?: {}, loading?: boolean): Promise<ResponseType> {
+  /* 请求公共参数配置 */
+  const publicParams = {
+    env: envConfig.ENV_TYPE,
+    mockType: 1,
+    source: 'h5'
+  }
   // 合并公共参数
   data = Object.assign({}, data, publicParams)
   const options: AxiosRequestConfig = {
     url,
     method,
     params: method.toUpperCase() === 'GET' || method.toUpperCase() === 'DELETE' ? data : null,
-    data:
-      method.toUpperCase() === 'POST' || method.toUpperCase() === 'PUT' ? qs.stringify(data) : null
+    data: method.toUpperCase() === 'POST' || method.toUpperCase() === 'PUT' ? data : null
   }
+
+  const AxiosInstance = initAxios(loading)
   return new Promise((resolve, reject) => {
     AxiosInstance(options)
       .then(res => {

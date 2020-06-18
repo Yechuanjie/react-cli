@@ -1,0 +1,12 @@
+.list {
+  .item {
+    padding: 0 20px;
+    height: 32px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 15px;
+    .done {
+      margin-left: 10px;
+    }
+  }
+}
