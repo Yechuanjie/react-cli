@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Yechuanjie/react-cli.svg?branch=master)](https://travis-ci.org/Yechuanjie/react-cli)
 
-该脚手架基于 [Create React App](https://github.com/facebook/create-react-app) 创建，方便快速搭建规范的、可直接进入业务开发的 react 移动端项目
+该脚手架基于 [Create React App](https://github.com/facebook/create-react-app) 创建，方便快速搭建 react 移动端项目
 
 项目技术栈: react + antd-moblie + typescript + react-router + redux
 
