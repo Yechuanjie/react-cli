@@ -33,7 +33,7 @@ router.get('/getInfo', (req, res) => {
  */
 router.post('/updateInfo', (req, res) => {
   const data = req.body
-  console.info('正在更新信息', data)
+  console.info('正在请求更新', data)
   return res.json({
     code: 200,
     data: true,
