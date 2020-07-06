@@ -233,6 +233,8 @@ const updateInfo = async () => {
   // get 请求
   const list = await API.getList({ type: 1 })
   console.info(list) // 请求结果就是封装后的 Promise<ResponseType> 类型
+  // 对于接口返回的数据格式，可以统一在global.d.ts里定义interface，假设你已经定义了 interface ListDetail, 然后如下使用
+  const data = list.data as ListDetail // 断言data类型，后续就可以直接使用定义好的数据结构
 }
 ```
 
