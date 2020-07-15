@@ -1,38 +1,39 @@
+
 ## react-cli
 
 [![Build Status](https://travis-ci.org/Yechuanjie/react-cli.svg?branch=master)](https://travis-ci.org/Yechuanjie/react-cli)
 
-该脚手架基于 [Create React App](https://github.com/facebook/create-react-app) 创建，方便快速搭建 react 移动端项目
+🎉 `react` 移动端开发脚手架，技术栈 `react` + `antd-moblie` + `typescript` + `react-router` + `redux`
 
-项目技术栈: react + antd-moblie + typescript + react-router + redux
+该脚手架基于 [Create React App](https://github.com/facebook/create-react-app) 创建，方便快速搭建 react 移动端项目。[仓库地址](https://github.com/Yechuanjie/react-cli) && [项目地址（在移动端查看）](https://yechuanjie.com/react-cli/index)
 
 ### <span id="top">目录</span>
 
-- [✔ TypeScript 开发语言](#ts)
+[✅ TypeScript 开发语言](#ts)
 
-- [✔ redux 状态管理](#redux)
+[✅ redux 状态管理](#redux)
 
-- [✔ react-router 路由管理](#router)
+[✅ react-router 路由管理](#router)
 
-- [✔ axios 封装及接口管理](#axios)
+[✅ axios 封装及接口管理](#axios)
 
-- [✔ 本地 mock server 支持](#mock)
+[✅ 本地 mock server 支持](#mock)
 
-- [✔ 本地跨域配置](#proxy)
+[✅ 本地跨域配置](#proxy)
 
-- [✔ esint + prettier 统一开发规范](#eslint)
+[✅ esint + prettier 统一开发规范](#eslint)
 
-- [✔ 支持自定义 webpack 配置](#webpack)
+[✅ 支持自定义 webpack 配置](#webpack)
 
-- [✔ rem 适配方案 ](#rem)
+[✅ rem 适配方案 ](#rem)
 
-- [✔ antd-moblie 组件按需加载](#antd)
+[✅ antd-moblie 组件按需加载](#antd)
 
-- [✔ 配置 alias 别名](#alias)
+[✅ 配置 alias 别名](#alias)
 
-- [✔ 配置打包分析](#analyze)
+[✅ 配置打包分析](#analyze)
 
-- [✔ 配置多环境变量](#env)
+[✅ 配置多环境变量](#env)
 
 #### <span id="ts">✅ TypeScript 开发语言</span>
 
@@ -62,7 +63,7 @@
 
 `src/index.tsx` 中引入
 
-```tsx
+```js
 import { Provider } from 'react-redux'
 import store from './store'
 
@@ -78,7 +79,7 @@ ReactDOM.render(
 
 使用
 
-```tsx
+```js
 import { useSelector, useDispatch } from 'react-redux'
 import { setAppUserInfo } from '@/store/actions/user'
 
@@ -132,7 +133,7 @@ export const routes: RouteConfig[] = [
 
 `src/router/index.tsx`
 
-```tsx
+```jsx
 import React, { Suspense } from 'react'
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 import { routes } from './routes'
@@ -162,7 +163,7 @@ export default RouterView
 
 `request` 封装 ，`src/api/request.ts`
 
-```ts
+```js
 import axios, { AxiosRequestConfig, Method } from 'axios'
 import envConfig from '@/config'
 /**
@@ -531,27 +532,27 @@ module.exports = override(
 
 - **.env.development**
 
-  ```javascript
+```javascript
   # 测试环境
   # must start with REACT_APP_
   REACT_APP_ENV = 'development'
-  ```
+```
 
 - **.env.staging**
 
-  ```javascript
+```javascript
   # 预发布环境
   # must start with REACT_APP_
   REACT_APP_ENV = 'staging'
-  ```
+```
 
 - **.env.production**
 
-  ```javascript
+```javascript
   # 正式环境
   # must start with REACT_APP_
   REACT_APP_ENV = 'production'
-  ```
+```
 
 这里我们并没有定义全部环境变量，只定义了基础的环境类型 REACT_APP_ENV `development`，`staging`， `production` 。变量我们统一在 `src/config/env.*.ts` 里进行管理
 
