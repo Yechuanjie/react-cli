@@ -163,29 +163,17 @@ export default RouterView
 
 `request` 封装 ，`src/api/request.ts`
 
-```js
+```ts
 import axios, { AxiosRequestConfig, Method } from 'axios'
 import envConfig from '@/config'
-/**
- * 接口返回类型 (根据后端返回的格式定义)
- * @interface ResponseType
- */
+// 接口返回类型 (根据后端返回的格式定义)
 interface ResponseType {
   data: any
   msg: string
   code: number
 }
-/**
- * 封装request
- *
- * @param {string} url
- * @param {Method} method
- * @param {*} [data]
- * @param {boolean} [loading]
- * @returns {Promise<ResponseType>}
- */
 export default function request(url: string, method: Method, data?: {}, loading?: boolean): Promise<ResponseType> {
-  /* 请求公共参数配置 */
+  // 请求公共参数配置
   const publicParams = {
     env: envConfig.ENV_TYPE,
     mockType: 1,
@@ -287,10 +275,7 @@ mock 数据根据需求在`src/mock/mock.mjs`中自定义修改，更多 mock �
 import Mock from 'mockjs'
 import express from 'express'
 const router = express.Router()
-/*
- * get类型接口
- * /api/getInfo 获取列表
- */
+// get类型接口  /api/getInfo 获取列表
 router.get('/getInfo', (req, res) => {
   console.info(req.query.type)
   const data = Mock.mock({
