@@ -3,7 +3,7 @@
  * 使用customize-cra自定义webpack配置
  */
 
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer') //分析插件，打包后在build/static/report.html中展示各模块所占的大小
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer') //分析插件，打包后在build/static/report.html中展示各模块所占的大小
 
 const { override, addPostcssPlugins, addWebpackAlias, fixBabelImports, addWebpackPlugin } = require('customize-cra')
 const path = require('path')
@@ -17,8 +17,8 @@ const analyze = process.env.REACT_APP_ENV === 'production' //是否分析打包�
 module.exports = override(
   /**
    * 假如设计图给的宽度是750，remUnit设置为75，这样我们写样式时，可以直接按照设计图标注的宽高来1:1还原开发。
-   * PS: 如果引用了某些没有兼容px2rem第三方UI框架，有的 1rem = 100px（antd-mobile）， 有的 1rem = 75px
-   * 需要将remUnit的值设置为像素对应的一半（即50），即可以1:1还原组件，否则会样式会有变化，例如按钮会变小。
+   * PS: 如果引用了某些没有兼容px2rem第三方UI框架，有的 1rem = 100px（antd-mobile）， 有的 1rem = 75px，
+   * 需要将remUnit的值设置为像素对应的一半（这里我们用的antd-mobile，所以设置为50），即可以1:1还原组件。
    */
   addPostcssPlugins([require('postcss-px2rem')({ remUnit: 50 })]),
   /* 别名设置 */
@@ -41,7 +41,11 @@ module.exports = override(
     libraryName: 'antd-mobile',
     style: 'css'
   }),
-  analyze ? addWebpackPlugin(new BundleAnalyzerPlugin({
-    analyzerMode: 'static', //输出静态报告文件report.html，而不是启动一个web服务
-  })): undefined,
+  analyze
+    ? addWebpackPlugin(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static' //输出静态报告文件report.html，而不是启动一个web服务
+        })
+      )
+    : undefined
 )

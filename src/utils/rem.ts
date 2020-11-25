@@ -1,6 +1,6 @@
 function setRem() {
-  const baseFontSize = 100 // 换算基数 （px2rem中的remUnit）
-  const designWidth = 750 // 设计稿宽度
+  const baseFontSize = 50 // 换算基数 （px2rem中的remUnit）
+  const designWidth = 375 // 设计稿宽度
   // 当前页面宽度相对于 设计稿宽度 的缩放比例，可根据自己需要修改。
   const fontSize = (document.documentElement.clientWidth / designWidth) * baseFontSize
   // 设置页面根节点字体大小
