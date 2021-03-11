@@ -5,9 +5,9 @@ import { setAppUserInfo } from '@/store/actions/user'
 import Logo from '@/components/logo'
 import List from '@/components/list'
 
-import * as API from '@/api/index'
-
 import './index.scss'
+import IndexApi from '@/api/index'
+import { Toast } from 'antd-mobile'
 
 type PageStateProps = {
   user: AppUserInfo
@@ -28,16 +28,18 @@ function Index() {
     )
 
     // get 请求
-    const list = await API.getList({ type: 1 })
-    console.info(list)
+    const list = await IndexApi.getList({ type: 1 })
+    console.info(list[0].name)
 
     // post 请求
-    const update = await API.updateInfo({
+    const update = await IndexApi.updateInfo({
       name: 'Jhon',
       phone: '18888888888',
       password: 'xxxxxxxx'
     })
-    console.info(update)
+    if (update) {
+      Toast.info('更新成功')
+    }
   }
 
   return (

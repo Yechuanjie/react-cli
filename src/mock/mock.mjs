@@ -7,19 +7,12 @@ const router = express.Router()
  */
 router.get('/getInfo', (req, res) => {
   console.info(req.query.type)
-  const data = Mock.mock({
-    'list|1-8': [
-      {
-        
-        'info|1-10': [
-          {
-            'name|1': ['John', 'Jessen', 'Mark'],
-            'desc|1': ['Hello', 'React-cli', 'Try it!']
-          }
-        ]
-      }
-    ]
-  })
+  const data = Mock.mock([
+    {
+      'name|1': ['John', 'Jessen', 'Mark'],
+      'desc|1': ['Hello', 'React-cli', 'Try it!']
+    }
+  ])
   return res.json({
     data,
     code: 200,

@@ -1,4 +1,3 @@
-
 ## react-cli
 
 [![Build Status](https://travis-ci.org/Yechuanjie/react-cli.svg?branch=master)](https://travis-ci.org/Yechuanjie/react-cli)
@@ -143,7 +142,11 @@ const RouterView = () => (
     <Suspense fallback={<div>加载中</div>}>
       <Switch>
         {routes.map(route => (
-          <Route key={route.path} path={route.path} component={route.component} exact={route.exact}></Route>
+          <Route
+            key={route.path}
+            path={route.path}
+            component={route.component}
+            exact={route.exact}></Route>
         ))}
         <Redirect to="/index"></Redirect>
       </Switch>
@@ -172,7 +175,12 @@ interface ResponseType {
   msg: string
   code: number
 }
-export default function request(url: string, method: Method, data?: {}, loading?: boolean): Promise<ResponseType> {
+export default function request(
+  url: string,
+  method: Method,
+  data?: {},
+  loading?: boolean
+): Promise<ResponseType> {
   // 请求公共参数配置
   const publicParams = {
     env: envConfig.ENV_TYPE,
@@ -211,19 +219,26 @@ export default function request(url: string, method: Method, data?: {}, loading?
 ```ts
 import request from './request'
 
-export const getList = (params: { type: number }) => request('/api/getInfo', 'GET', { ...params }, true)
+interface InfoListItem {
+  name: string
+  desc: string
+}
+
+class IndexApi {
+  static getList = (params: { type: number }): Promise<InfoListItem[]> =>
+    request('/api/getInfo', 'GET', params, true)
+}
 ```
 
 使用封装的`request`
 
 ```ts
-import * as API from '@/api/index'
+import IndexApi from '@/api/index'
 const updateInfo = async () => {
   // get 请求
-  const list = await API.getList({ type: 1 })
-  console.info(list) // 请求结果就是封装后的 Promise<ResponseType> 类型
-  // 对于接口返回的数据格式，可以统一在global.d.ts里定义interface，假设你已经定义了 interface ListDetail, 然后如下使用
-  const data = list.data as ListDetail // 断言data类型，后续就可以直接使用定义好的数据结构
+  const list = await IndexApi.getList({ type: 1 })
+  console.info(list) // 请求结果数据类型即为api里定义的接口返回类型 即 InfoListItem[]
+  console.log(list.length, list[0].name) 
 }
 ```
 

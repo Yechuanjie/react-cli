@@ -7,8 +7,8 @@ import { getHttpStatusText } from './status'
  * 接口返回类型 (根据后端返回的格式定义)
  * @interface ResponseType
  */
-interface ResponseType {
-  data: any
+export interface ResponseType<T> {
+  data: T
   msg: string
   code: number
 }
@@ -66,7 +66,12 @@ const initAxios = (loading?: boolean) => {
  * @param {boolean} [loading]
  * @returns {Promise<ResponseType>}
  */
-export default function request(url: string, method: Method, data?: {}, loading?: boolean): Promise<ResponseType> {
+export default function request(
+  url: string,
+  method: Method,
+  data?: {},
+  loading?: boolean
+): Promise<any> {
   /* 请求公共参数配置 */
   const publicParams = {
     env: envConfig.ENV_TYPE,
@@ -86,12 +91,12 @@ export default function request(url: string, method: Method, data?: {}, loading?
   return new Promise((resolve, reject) => {
     AxiosInstance(options)
       .then(res => {
-        const data = res.data as ResponseType
+        const data = res.data as ResponseType<any>
         // 这里可以添加和后台的 status 约定
         // if (data.code !== 200) {
         //   Toast.info(data.msg)
         // }
-        resolve(data)
+        resolve(data.data)
       })
       .catch(err => {
         reject(err)
