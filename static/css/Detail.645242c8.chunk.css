@@ -1,0 +1,1 @@
+.logo{position:relative;width:2rem;height:2rem;display:flex;align-items:center;justify-content:center}.logo .bg{position:absolute;width:100%;height:100%}.logo .inner{width:75%;height:85%;z-index:1}.detail-page{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}.detail-page .desc{margin-top:.4rem}
