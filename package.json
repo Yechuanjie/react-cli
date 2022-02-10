@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.4",
     "mockjs": "^1.1.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "postcss-px2rem": "^0.3.0",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.6",
